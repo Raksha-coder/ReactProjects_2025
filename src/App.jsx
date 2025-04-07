@@ -4,6 +4,7 @@ import UpdateObjectInState from "./components/UpdateObjectInState";
 import Food from "./components/ListOfFood";
 import CarComp from "./components/ListOfCarObject";
 import TodoList from "./components/TodoList";
+import UseEffect from "./components/UserEffect";
 import './index.css'
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
       
        */}
       <TodoList />
+      <UseEffect />
     </>
   )
 }
