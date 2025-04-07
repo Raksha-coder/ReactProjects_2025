@@ -13,12 +13,16 @@ function Food(){
       setNewItem("");
   }
 
+  function handleRemoveFood(index){
+        setFruits(fruit.filter((_,i)=> i !== index));
+  }
+
 
   return(<>
       <h2>List of Food</h2>
       <ul>
         {fruit.map((val,index)=>(
-          <li key={index} >{val}</li>
+          <li key={index} onClick={(e) => handleRemoveFood(index)}>{val}</li>
         ))}
       </ul>
 
