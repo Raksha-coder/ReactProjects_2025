@@ -5,6 +5,7 @@ import Food from "./components/ListOfFood";
 import CarComp from "./components/ListOfCarObject";
 import TodoList from "./components/TodoList";
 import UseEffect from "./components/UserEffect";
+import CheckUseEffect from "./components/ExUseEffect";
 import './index.css'
 function App() {
 
@@ -15,10 +16,11 @@ function App() {
       <UpdateObjectInState />
       <Food />
       <CarComp />
-      
-       */}
       <TodoList />
       <UseEffect />
+       */}
+  
+      <CheckUseEffect />
     </>
   )
 }
