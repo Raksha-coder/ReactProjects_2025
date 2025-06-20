@@ -2,8 +2,32 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 import {sub} from "date-fns";
 const initialState = [
-    { id:1, title:"Learning redux.." ,content :"first post is about...."},
-    { id:2, title:"Learning redux.." ,content :"second post is about...."},
+    { 
+        id:1, 
+        title:"Learning redux.." ,
+        content :"first post is about....",
+        date:sub(new Date(),{minutes : 10}).toISOString(),
+        reactions :{
+            thumbsUp : 0,
+            wow:0,
+            heart:0,
+            rocket:0,
+            coffee:0
+        }
+    },
+    { 
+        id:2, 
+        title:"Learning redux.." ,
+        content :"second post is about....",
+        date:sub(new Date(),{minutes:5}).toISOString(),
+         reactions :{
+            thumbsUp : 0,
+            wow:0,
+            heart:0,
+            rocket:0,
+            coffee:0
+        }
+    },
 ];
 
 
@@ -21,17 +45,32 @@ export const postSlice = createSlice({
                         id : nanoid(),
                         title,
                         content,
-                        userId
+                        userId,
+                        date : new Date().toISOString(),
+                         reactions :{
+                            thumbsUp : 0,
+                            wow:0,
+                            heart:0,
+                            rocket:0,
+                            coffee:0
+                        }
                     }
                 }
             }
+    },
+    reactionAdded(state,action) {
+        const {postId,reaction} = action.payload;
+        const existingPost = state.find(post => post.id === postId); //find the post which user has clicked
+        if(existingPost){
+            existingPost.reactions[reaction]++  //increase the particular emoji count 
+        }
     }
     }
 }); 
 
 export const selectAllPosts = (state) => state.posts;
 
-export const { postAdded } = postSlice.actions;
+export const { postAdded,reactionAdded } = postSlice.actions;
 
 export default postSlice.reducer;
 
