@@ -25,3 +25,16 @@ Store = 	Holds the global state<br>
 Action = 	Tells Redux what to do<br>
 Reducer	 = Updates state based on the action<br>
 Dispatch =	Sends action to the store<br>
+
+https://redux.js.org/assets/images/ReduxDataFlowDiagram-49fa8c3968371d9ef6f2a1486bd40a26.gif
+
+
+## useSelector
+
+useSelector is a hook provided by React Redux that allows your React component to read data from the Redux store.
+
+
+## What is action.payload?
+
+In Redux, when you dispatch an action with data, that data is stored in the payload property of the action object.
+
