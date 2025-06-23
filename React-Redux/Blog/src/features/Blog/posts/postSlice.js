@@ -1,6 +1,7 @@
 
 import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { sub } from "date-fns";
 // const initialState = [
 //     { 
 //         id:1, 
@@ -39,10 +40,16 @@ const initialState = {
 }
 
 
-//api calling 
+//get all post
 export const fetchPosts = createAsyncThunk("posts/fetchposts", async () => {
     const response = await axios.get(POSTS_URL);
     return [...response.data];
+});
+
+//add new post 
+export const addNewPost = createAsyncThunk("posts/addNewPost", async (initialPost) => {
+    const response = await axios.post(POSTS_URL,initialPost);
+    return response.data;
 });
 
 
@@ -54,12 +61,12 @@ export const postSlice = createSlice({
             reducer(state,action){
                 state.posts.push(action.payload);
             },
-            prepare(title,content,userId){    // I have customize this prepare function which is inbuild in redux , we cannot rename this function.
+            prepare(title,body,userId){    // I have customize this prepare function which is inbuild in redux , we cannot rename this function.
                 return {
                     payload : {
                         id : nanoid(),
                         title,
-                        content,
+                        body,
                         userId,
                         date : new Date().toISOString(),
                          reactions :{
@@ -110,6 +117,20 @@ export const postSlice = createSlice({
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(addNewPost.fulfilled,(state, action)=>{
+            action.payload.userId = Number(action.payload.userId);
+            action.payload.date = new Date().toISOString();
+            action.payload.reactions = {
+                 thumbsUp : 0,
+                 wow:0,
+                 heart:0,
+                 rocket:0,
+                 coffee:0
+            }
+            console.log(action.payload);
+            state.posts.push(action.payload);
+            
       });
   }
 }); 

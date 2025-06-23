@@ -1,9 +1,7 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import {selectAllPosts , getPostsStatus , getPostsError , fetchPosts} from "./postSlice";
-import PostUser from "./PostUser";
-import TimeAgo from "./TimeAgo";
-import ReactionButton from "./ReactionButton";
+import PostsExcerpt from "./PostsExcerpt";
 import { useEffect } from "react";
 
 export const PostList = () => {
@@ -21,28 +19,25 @@ export const PostList = () => {
 
 
 
-    const orderePosts = posts.slice().sort((a,b) => b.date.localeCompare(a.date));
+    let content;
+    if(postsStatus === 'loading'){
+        content = <p>{"Loading..."}</p>
+    }else if (postsStatus === 'succeeded'){
+        const orderePosts = posts.slice().sort((a,b) => b.date.localeCompare(a.date));
+        const renderPostLists = orderePosts.map((post,index) => (
+            <PostsExcerpt key={index} style={{"border":"2px solid blue","margin":"2px"}} post={post}/>
+        ));
+        content = renderPostLists;
+    }else if (postsStatus === 'failed'){
+             content = <p>{postsError}</p>
+    }
 
-    //render posts
-    const renderPostLists = orderePosts.map((post) => (
-        <article key={post.id} style={{"border":"2px solid blue","margin":"2px"}}>
-            <h3>{post.title}</h3>
-            <p>{post.content.substring(0,100)}</p>
-            <p className="postCredit">
-                <PostUser userId={post.userId} />
-                <TimeAgo timestamp={post.date} />
-                <br />
-                <ReactionButton post={post}/>
-            </p>
-        </article>
-    ));
-
-
+   
   return (
     <>
         <section>
             <h2>Posts</h2>
-            {renderPostLists}
+            {content}
         </section>
     </>
   )
