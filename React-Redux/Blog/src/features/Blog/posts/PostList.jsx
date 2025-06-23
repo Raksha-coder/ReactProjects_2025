@@ -1,13 +1,25 @@
 
-import { useSelector } from "react-redux";
-import {selectAllPosts} from "./postSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {selectAllPosts , getPostsStatus , getPostsError , fetchPosts} from "./postSlice";
 import PostUser from "./PostUser";
 import TimeAgo from "./TimeAgo";
-import reactionAdded from "./postSlice";
+import ReactionButton from "./ReactionButton";
+import { useEffect } from "react";
 
 export const PostList = () => {
-    //get posts
+    const dispatch = useDispatch();
     const posts = useSelector(selectAllPosts);
+    const postsStatus = useSelector(getPostsStatus);
+    const postsError = useSelector(getPostsError);
+
+    //calling the api if it is idle (First time)
+    useEffect(() =>{
+        if(postsStatus === 'idle')
+            dispatch(fetchPosts())
+
+    },[postsStatus,dispatch])
+
+
 
     const orderePosts = posts.slice().sort((a,b) => b.date.localeCompare(a.date));
 
@@ -19,6 +31,8 @@ export const PostList = () => {
             <p className="postCredit">
                 <PostUser userId={post.userId} />
                 <TimeAgo timestamp={post.date} />
+                <br />
+                <ReactionButton post={post}/>
             </p>
         </article>
     ));

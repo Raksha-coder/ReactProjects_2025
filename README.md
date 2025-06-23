@@ -1,5 +1,8 @@
 # Started Learning React Redux.
 
+Redux does everything synchronously and to make it work like 
+Async we use thunk (a piece of code that does some delayed work).
+
 ## How to install react redux.
 npm install @reduxjs/toolkit react-redux <br>
 
