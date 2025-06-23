@@ -20,6 +20,9 @@ export const AddPostForm = () => {
             setAddRequestStatus("pending");
             dispatch(addNewPost({title,body:content,userId})).unwrap();
 
+            //unwrap give use response , it work just like promise .
+            //If the thunk fails, it throws an error (like a real Promise rejection)
+
             setTitle("");
             setContent("");
             setUserId("");
