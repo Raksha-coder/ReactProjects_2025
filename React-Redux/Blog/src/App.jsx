@@ -4,6 +4,7 @@ import {AddPostForm} from "./features/Blog/posts/AddPostForm";
 import SinglePostPage from "./features/Blog/posts/SinglePostPage";
 import Layout from './Components/Layout';
 import {Routes,Route} from "react-router-dom";
+import { EditPostForm } from './features/Blog/posts/EditPostForm';
 function App() {
 
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route index element = {<AddPostForm />} />
             {/* if user go to post show the addpostform page */}
             <Route path=":postId" element={<SinglePostPage />} />
+            <Route path="edit/:postId" element={<EditPostForm />} />
         </Route>
       </Route>
     </Routes>

@@ -4,7 +4,7 @@ import PostUser from "./PostUser";
 import TimeAgo from "./TimeAgo";
 import ReactionButton from "./ReactionButton";
 import { useParams } from "react-router-dom";
-
+import { Link } from 'react-router-dom';
 const SinglePostPage = () => {
   const { postId } = useParams();
 
@@ -23,6 +23,7 @@ const SinglePostPage = () => {
       <article className="postDetailCard">
         <h2 className="postTitle">{post.title}</h2>
         <p className="postBody">{post.body}</p>
+        <Link to={`/post/edit/${post.id}`}>Edit Post</Link>
         <div className="postMeta">
           <PostUser userId={post.userId} />
           <TimeAgo timestamp={post.date} />
