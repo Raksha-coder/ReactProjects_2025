@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useDispatch , useSelector } from 'react-redux';
 import {addNewPost} from "./postSlice"
 import { selectAllUsers } from './users/userSlice';
-
+import "./../../../css/AddPostForm.css";
 export const AddPostForm = () => {
   const [title,setTitle] = useState("");
   const [content,setContent] = useState("");
@@ -42,23 +42,25 @@ export const AddPostForm = () => {
   ))
 
   return (
-    <>
-          {/* save posts */}
-        <h2>Add new Post</h2>
-        <form>
-          <label htmlFor="userId">Author : </label>
-            <select id='userId' value={userId} onChange={(e) => setUserId(e.target.value)}>
-              <option value=""></option>
-              {userOptions}
-            </select>
+     <section className="formSection">
+      <h2>Add New Post</h2>
+      <form className="postForm">
+        <label htmlFor="userId">Author:</label>
+        <select id="userId" value={userId} onChange={(e) => setUserId(e.target.value)}>
+          <option value="">Select user</option>
+          {userOptions}
+        </select>
 
-            <label htmlFor="title">Post Title : </label>
-            <input type="text" value={title}  id='title' onChange={(e) => setTitle(e.target.value)}/>
-            <br />
-            <label htmlFor="content">Post Content :</label>
-            <input type="text" value={content}  id='content' onChange={(e) => setContent(e.target.value)}/>
-            <button type='button' onClick={() =>onSavePostClicked()} disabled={!canSave}>Save Post</button>
-        </form>
-    </>
+        <label htmlFor="title">Post Title:</label>
+        <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+
+        <label htmlFor="content">Post Content:</label>
+        <textarea id="content" rows="5" value={content} onChange={(e) => setContent(e.target.value)} />
+
+        <button type="button" onClick={onSavePostClicked} disabled={!canSave}>
+          Save Post
+        </button>
+      </form>
+    </section>
   )
 }

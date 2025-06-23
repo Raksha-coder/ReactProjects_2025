@@ -41,3 +41,6 @@ useSelector is a hook provided by React Redux that allows your React component t
 
 In Redux, when you dispatch an action with data, that data is stored in the payload property of the action object.
 
+## Added Axios and React Route package
+ npm i react-router-dom
+ npm i axios

@@ -25,7 +25,7 @@ export const PostList = () => {
     }else if (postsStatus === 'succeeded'){
         const orderePosts = posts.slice().sort((a,b) => b.date.localeCompare(a.date));
         const renderPostLists = orderePosts.map((post,index) => (
-            <PostsExcerpt key={index} style={{"border":"2px solid blue","margin":"2px"}} post={post}/>
+            <PostsExcerpt key={index} post={post}/>
         ));
         content = renderPostLists;
     }else if (postsStatus === 'failed'){
@@ -35,8 +35,8 @@ export const PostList = () => {
    
   return (
     <>
-        <section>
-            <h2>Posts</h2>
+        {/* <h2>Posts</h2> */}
+        <section className="postList">
             {content}
         </section>
     </>
